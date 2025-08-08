@@ -38,7 +38,7 @@ class CalendarDay extends Component {
     styleWeekend: PropTypes.bool,
     customDatesStyles: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
     markedDatesStyle: PropTypes.object,
-    allowDayTextScaling: PropTypes.bool,
+    allowFontScaling: PropTypes.bool,
 
     calendarAnimation: PropTypes.object,
     registerAnimation: PropTypes.func.isRequired,
@@ -367,7 +367,7 @@ class CalendarDay extends Component {
       onDateSelected,
       showDayName,
       showDayNumber,
-      allowDayTextScaling,
+      allowFontScaling,
       dayComponent: DayComponent,
       scrollable,
     } = this.props;
@@ -461,7 +461,7 @@ class CalendarDay extends Component {
             {showDayName && (
               <Text
                 style={[{ fontSize: dateNameFontSize }, _dateNameStyle]}
-                false={allowDayTextScaling}
+                allowFontScaling={false}
               >
                 {date.format("ddd").toUpperCase()}
               </Text>
@@ -473,7 +473,7 @@ class CalendarDay extends Component {
                     { fontSize: dateNumberFontSize },
                     _dateNumberStyle
                   ]}
-                  false={allowDayTextScaling}
+                  allowFontScaling={false}
                 >
                   {date.date()}
                 </Text>
