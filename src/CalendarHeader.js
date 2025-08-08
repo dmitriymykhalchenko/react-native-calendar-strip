@@ -95,7 +95,7 @@ class CalendarHeader extends Component {
             { fontSize: fontSize },
             calendarHeaderStyle
           ]}
-          allowFontScaling={allowHeaderTextScaling}
+          allowFontScaling={false}
         >
           {_headerText}
         </Text>
