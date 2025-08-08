@@ -461,7 +461,7 @@ class CalendarDay extends Component {
             {showDayName && (
               <Text
                 style={[{ fontSize: dateNameFontSize }, _dateNameStyle]}
-                allowFontScaling={allowDayTextScaling}
+                false={allowDayTextScaling}
               >
                 {date.format("ddd").toUpperCase()}
               </Text>
@@ -473,7 +473,7 @@ class CalendarDay extends Component {
                     { fontSize: dateNumberFontSize },
                     _dateNumberStyle
                   ]}
-                  allowFontScaling={allowDayTextScaling}
+                  false={allowDayTextScaling}
                 >
                   {date.date()}
                 </Text>
