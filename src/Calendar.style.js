@@ -13,13 +13,15 @@ export default StyleSheet.create({
     flexDirection: "row",
     flex: 1,
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+
   },
   calendarDates: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+
   },
   calendarHeader: {
     textAlign: "center",
@@ -38,6 +40,8 @@ export default StyleSheet.create({
   //CALENDAR DAY
   dateRootContainer: {
     flex: 1,
+    height:50,
+    color:'gold'
   },
   dateContainer: {
     justifyContent: "center",
