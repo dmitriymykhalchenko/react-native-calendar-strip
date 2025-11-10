@@ -382,6 +382,7 @@ class CalendarStrip extends Component {
 
   createDayProps = selectedDate => {
       const isFold = PixelRatio.getFontScale() <= 0.9;
+      
     return {
       selectedDate,
       onDateSelected: this.onDateSelected,
@@ -395,6 +396,7 @@ class CalendarStrip extends Component {
       dateNameStyle: {...this.props.dateNameStyle, 
        fontSize: !!isFold && 25
       },
+      //  dateNumberStyle: this.props.dateNumberStyle,
       dateNumberStyle: {...this.props.dateNumberStyle, paddingHorizontal:0,
       width: !!isFold && 45,
       fontSize: !!isFold && 39,
@@ -409,8 +411,8 @@ class CalendarStrip extends Component {
         width: !!isFold && 60,
       },
       disabledDateNameStyle: {...this.props.disabledDateNameStyle,
-      fontSize: !!isFold && 25, color:'red'},
-      disabledDateNumberStyle: {...this.props.disabledDateNumberStyle, color:'red', fontSize:5},
+      fontSize: !!isFold && 25},
+      disabledDateNumberStyle: {...this.props.disabledDateNumberStyle, fontSize:5},
       markedDatesStyle: this.props.markedDatesStyle,
       disabledDateOpacity: this.props.disabledDateOpacity,
       styleWeekend: this.props.styleWeekend,
@@ -549,8 +551,7 @@ class CalendarStrip extends Component {
       <View
         style={[
           styles.calendarContainer,
-          { backgroundColor: this.props.calendarColor, 
- },
+          { backgroundColor: this.props.calendarColor,},
           this.props.style
         ]}
       >
