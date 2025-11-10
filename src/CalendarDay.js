@@ -6,7 +6,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 
-import { Text, View, Animated, Easing, LayoutAnimation, TouchableOpacity } from "react-native";
+import { Text, View, Animated, Easing, LayoutAnimation, TouchableOpacity,PixelRatio } from "react-native";
 import styles from "./Calendar.style.js";
 
 class CalendarDay extends Component {
@@ -298,8 +298,8 @@ class CalendarDay extends Component {
       .filter(d => (d && d.color))
       .map((dot, index) => {
         const selectedColor = dot.selectedColor || dot.selectedDotColor; // selectedDotColor deprecated
-        const backgroundColor = this.state.selected ?'red':'green'
-        // && selectedColor ? selectedColor : dot.color;
+        const backgroundColor = this.state.selected 
+        && selectedColor ? selectedColor : dot.color;
         return (
           <View
             key={dot.key || (formattedDate + index)}
@@ -381,6 +381,7 @@ class CalendarDay extends Component {
       dateNameFontSize,
       dateNumberFontSize,
     } = this.state;
+      const isFold = PixelRatio.getFontScale() <= 0.9;
 
     let _dateNameStyle = [
       styles.dateName,
@@ -425,27 +426,39 @@ class CalendarDay extends Component {
           break;
       }
 
-      _dateNameStyle = [styles.dateName, dateNameStyle];
+      _dateNameStyle = [styles.dateName, dateNameStyle, { width:60}];
       _dateNumberStyle = [styles.dateNumber, dateNumberStyle];
       if (styleWeekend &&
         (date.isoWeekday() === 6 || date.isoWeekday() === 7)
       ) {
         _dateNameStyle = [
           styles.weekendDateName,
-          weekendDateNameStyle
+         [ weekendDateNameStyle,
+          !isFold && { width: 60, backgroundColor:'green' }
+         ]
         ];
         _dateNumberStyle = [
           styles.weekendDateNumber,
-          weekendDateNumberStyle
+          [weekendDateNumberStyle,
+            !!isFold && { width: 60, backgroundColor:'gold' }
+          ]
         ];
       }
       if (selected) {
-        _dateNameStyle = [styles.dateName,
-           highlightDateNameStyle
-          ];
+        _dateNameStyle = [
+          styles.dateName,
+        [highlightDateNameStyle,
+          !!isFold && { width: 60 }
+          ]
+        ];
+          
         _dateNumberStyle = [
           styles.dateNumber,
-          highlightDateNumberStyle
+          highlightDateNumberStyle,
+          {
+            fontSize: !!isFold && 39,
+            paddingHorizontal: 0,
+          }
         ];
       }
     }
@@ -460,6 +473,7 @@ class CalendarDay extends Component {
     if (DayComponent) {
       day = (<DayComponent {...this.props} {...this.state}/>);
     }
+    
     else {
       day = (
         <TouchableOpacity
@@ -477,7 +491,7 @@ class CalendarDay extends Component {
               <Text
                 style={[
                   { fontSize: dateNameFontSize },
-                   _dateNameStyle
+                   [_dateNameStyle, !!isFold&& {width:60}]
                   ]}
                 allowFontScaling={false}
               >
