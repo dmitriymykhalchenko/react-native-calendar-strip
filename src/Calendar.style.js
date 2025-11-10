@@ -31,7 +31,7 @@ export default StyleSheet.create({
   iconContainer: {
     justifyContent: "center",
     alignItems: "center",
-    alignSelf: "center"
+    alignSelf: "center",
   },
   icon: {
     resizeMode: "contain"
@@ -41,6 +41,7 @@ export default StyleSheet.create({
   dateRootContainer: {
     flex: 1,
     height:50,
+    // width:150,
     color:'gold'
   },
   dateContainer: {
