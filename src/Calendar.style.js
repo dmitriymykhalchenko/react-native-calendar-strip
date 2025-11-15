@@ -2,7 +2,7 @@
  * Created by bogdanbegovic on 8/26/16.
  */
 
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 
 export default StyleSheet.create({
   //CALENDAR STYLES
@@ -38,6 +38,7 @@ export default StyleSheet.create({
   //CALENDAR DAY
   dateRootContainer: {
     flex: 1,
+    height: Platform.OS === 'android'&& 50,
   },
   dateContainer: {
     justifyContent: "center",

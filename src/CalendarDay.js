@@ -6,7 +6,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 
-import { Text, View, Animated, Easing, LayoutAnimation, TouchableOpacity } from "react-native";
+import { Text, View, Animated, Easing, LayoutAnimation, TouchableOpacity, Platform } from "react-native";
 import styles from "./Calendar.style.js";
 
 class CalendarDay extends Component {
@@ -380,6 +380,7 @@ class CalendarDay extends Component {
       dateNameFontSize,
       dateNumberFontSize,
     } = this.state;
+    const isFold = PixelRatio.getFontScale() <= 0.9;
 
     let _dateNameStyle = [styles.dateName, enabled ? dateNameStyle : disabledDateNameStyle];
     let _dateNumberStyle = [styles.dateNumber, enabled ? dateNumberStyle : disabledDateNumberStyle];
@@ -411,7 +412,6 @@ class CalendarDay extends Component {
           // No animation styling by default
           break;
       }
-
       _dateNameStyle = [styles.dateName, dateNameStyle];
       _dateNumberStyle = [styles.dateNumber, dateNumberStyle];
       if (styleWeekend &&
@@ -419,24 +419,36 @@ class CalendarDay extends Component {
       ) {
         _dateNameStyle = [
           styles.weekendDateName,
-          weekendDateNameStyle
+           [ weekendDateNameStyle,
+        Platform.OS === 'android' &&  !!isFold && { width: 60, backgroundColor:'green' }
+         ]
         ];
         _dateNumberStyle = [
           styles.weekendDateNumber,
-          weekendDateNumberStyle
+          [weekendDateNumberStyle,
+            Platform.OS === 'android' && !!isFold && { width: 60, backgroundColor: 'gold' }
+          ]
         ];
       }
       if (selected) {
-        _dateNameStyle = [styles.dateName, highlightDateNameStyle];
+        _dateNameStyle = [styles.dateName,
+         [highlightDateNameStyle,
+          Platform.OS === 'android' &&  !!isFold && { width: 60 }
+          ]
+          ];
         _dateNumberStyle = [
           styles.dateNumber,
-          highlightDateNumberStyle
+          highlightDateNumberStyle,
+          {
+            fontSize: Platform.OS === 'android' && !!isFold && 39,
+            paddingHorizontal: 0,
+          }
         ];
       }
     }
 
     let responsiveDateContainerStyle = {
-      width: containerSize,
+      width: Platform.OS === 'android' && !!isFold ? containerSize + 40 : containerSize,
       height: containerSize,
       borderRadius: containerBorderRadius,
     };
@@ -460,7 +472,9 @@ class CalendarDay extends Component {
           >
             {showDayName && (
               <Text
-                style={[{ fontSize: dateNameFontSize }, _dateNameStyle]}
+                style={[{ fontSize: dateNameFontSize },
+                   [_dateNameStyle,Platform.OS === 'android' && !!isFold&& {width:60}]
+                  ]}
                 allowFontScaling={false}
               >
                 {date.format("ddd").toUpperCase()}

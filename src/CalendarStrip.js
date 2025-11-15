@@ -4,7 +4,7 @@
 
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { View, Animated, PixelRatio } from "react-native";
+import { View, Animated, PixelRatio, Platform } from "react-native";
 
 import moment from "moment";
 
@@ -381,6 +381,8 @@ class CalendarStrip extends Component {
   }
 
   createDayProps = selectedDate => {
+    const isFold = PixelRatio.getFontScale() <= 0.9;
+    
     return {
       selectedDate,
       onDateSelected: this.onDateSelected,
@@ -391,14 +393,32 @@ class CalendarStrip extends Component {
       showDayNumber: this.props.showDayNumber,
       dayComponent: this.props.dayComponent,
       calendarColor: this.props.calendarColor,
-      dateNameStyle: this.props.dateNameStyle,
-      dateNumberStyle: this.props.dateNumberStyle,
+      // dateNameStyle: this.props.dateNameStyle,
+       dateNameStyle: {...this.props.dateNameStyle, 
+       fontSize: Platform.OS === 'android' && !!isFold && 25
+      },
+       dateNumberStyle: {...this.props.dateNumberStyle, paddingHorizontal:0,
+      width: Platform.OS === 'android' && !!isFold && 45,
+      fontSize: Platform.OS === 'android' &&  !!isFold && 39,
+      fontWeight:Platform.OS === 'android' && !!isFold && "500",
+      },
+      // dateNumberStyle: this.props.dateNumberStyle,
       weekendDateNameStyle: this.props.weekendDateNameStyle,
       weekendDateNumberStyle: this.props.weekendDateNumberStyle,
-      highlightDateNameStyle: this.props.highlightDateNameStyle,
-      highlightDateNumberStyle: this.props.highlightDateNumberStyle,
-      disabledDateNameStyle: this.props.disabledDateNameStyle,
-      disabledDateNumberStyle: this.props.disabledDateNumberStyle,
+       highlightDateNameStyle: {...this.props.highlightDateNameStyle,
+        fontSize: Platform.OS === 'android' && !!isFold && 25
+      },
+      highlightDateNumberStyle: {...this.props.highlightDateNumberStyle,
+        width:Platform.OS === 'android' && !!isFold && 60,
+      },
+      // highlightDateNameStyle: this.props.highlightDateNameStyle,
+      // highlightDateNumberStyle: this.props.highlightDateNumberStyle,
+       disabledDateNameStyle: {...this.props.disabledDateNameStyle,
+      fontSize:Platform.OS === 'android' && !!isFold && 25},
+      disabledDateNumberStyle: {...this.props.disabledDateNumberStyle, fontSize: Platform.OS === 'android' && !!isFold &&5},
+
+      // disabledDateNameStyle: this.props.disabledDateNameStyle,
+      // disabledDateNumberStyle: this.props.disabledDateNumberStyle,
       markedDatesStyle: this.props.markedDatesStyle,
       disabledDateOpacity: this.props.disabledDateOpacity,
       styleWeekend: this.props.styleWeekend,
