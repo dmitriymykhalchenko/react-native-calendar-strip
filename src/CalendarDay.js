@@ -441,7 +441,7 @@ class CalendarDay extends Component {
           highlightDateNumberStyle,
           {
             fontSize: Platform.OS === 'android' && !!isFold && 39,
-            paddingHorizontal: 0,
+            // paddingHorizontal: 0,
           }
         ];
       }
@@ -515,3 +515,4 @@ class CalendarDay extends Component {
 }
 
 export default CalendarDay;
+
