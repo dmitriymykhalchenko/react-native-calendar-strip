@@ -6,7 +6,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 
-import { Text, View, Animated, Easing, LayoutAnimation, TouchableOpacity, Platform } from "react-native";
+import { Text, View, Animated, Easing, LayoutAnimation, TouchableOpacity, Platform, PixelRatio } from "react-native";
 import styles from "./Calendar.style.js";
 
 class CalendarDay extends Component {
