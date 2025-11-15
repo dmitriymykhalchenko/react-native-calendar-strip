@@ -397,11 +397,19 @@ class CalendarStrip extends Component {
        dateNameStyle: {...this.props.dateNameStyle, 
        fontSize: Platform.OS === 'android' && !!isFold && 25
       },
-       dateNumberStyle: {...this.props.dateNumberStyle, paddingHorizontal:0,
-      width: Platform.OS === 'android' && !!isFold && 45,
-      fontSize: Platform.OS === 'android' &&  !!isFold && 39,
-      fontWeight:Platform.OS === 'android' && !!isFold && "500",
+  
+      dateNumberStyle: {
+        ...this.props.dateNumberStyle,
+        ...(Platform.OS === 'android' && isFold
+          ? {
+            paddingHorizontal: 0,
+            width: 45,
+            fontSize: 39,
+            fontWeight: '500',
+          }
+          : {})
       },
+
       // dateNumberStyle: this.props.dateNumberStyle,
       weekendDateNameStyle: this.props.weekendDateNameStyle,
       weekendDateNumberStyle: this.props.weekendDateNumberStyle,
@@ -409,13 +417,19 @@ class CalendarStrip extends Component {
         fontSize: Platform.OS === 'android' && !!isFold && 25
       },
       highlightDateNumberStyle: {...this.props.highlightDateNumberStyle,
-        width:Platform.OS === 'android' && !!isFold && 60,
+        width:Platform.OS === 'android'? !!isFold ?60:null:null,
+        // Platform.OS === 'android' && 
+        // !!isFold && 
+        // 60,
       },
       // highlightDateNameStyle: this.props.highlightDateNameStyle,
       // highlightDateNumberStyle: this.props.highlightDateNumberStyle,
        disabledDateNameStyle: {...this.props.disabledDateNameStyle,
-      fontSize:Platform.OS === 'android' && !!isFold && 25},
-      disabledDateNumberStyle: {...this.props.disabledDateNumberStyle, fontSize: Platform.OS === 'android' && !!isFold &&5},
+      fontSize:Platform.OS === 'android' && !!isFold && 25
+    },
+      disabledDateNumberStyle: {...this.props.disabledDateNumberStyle,
+         fontSize: Platform.OS === 'android' && !!isFold &&5
+        },
 
       // disabledDateNameStyle: this.props.disabledDateNameStyle,
       // disabledDateNumberStyle: this.props.disabledDateNumberStyle,
