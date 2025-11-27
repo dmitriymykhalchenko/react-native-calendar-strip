@@ -149,12 +149,12 @@ class CalendarStrip extends Component {
 
     if (!this.compareDates(prevProps.startingDate, this.props.startingDate)) {
       updateState = true;
-      startingDate = { startingDate: this.setLocale(this.props.startingDate)};
+      startingDate = { startingDate: this.setLocale(this.props.startingDate) };
       days = this.createDays(startingDate.startingDate);
     }
 
     if (updateState) {
-      this.setState({...startingDate, ...days });
+      this.setState({ ...startingDate, ...days });
     }
   }
 
@@ -180,8 +180,7 @@ class CalendarStrip extends Component {
   // JS date, or ISO 8601 strings.
   // Returns true if the datetimes values are the same; false otherwise.
   compareDates = (date1, date2) => {
-    if (date1 && date1.valueOf && date2 && date2.valueOf)
-    {
+    if (date1 && date1.valueOf && date2 && date2.valueOf) {
       return moment(date1).isSame(date2, "day");
     } else {
       return JSON.stringify(date1) === JSON.stringify(date2);
@@ -265,7 +264,7 @@ class CalendarStrip extends Component {
     let startingDate = moment(date);
     startingDate = this.props.useIsoWeekday ? startingDate.startOf("isoweek") : startingDate;
     const days = this.createDays(startingDate);
-    this.setState({startingDate, ...days});
+    this.setState({ startingDate, ...days });
   }
 
   //Handling press on date/selecting date
@@ -365,7 +364,7 @@ class CalendarStrip extends Component {
       marginHorizontal,
       numVisibleDays,
     },
-    () => this.setState( {...this.createDays(this.state.startingDate)} ));
+      () => this.setState({ ...this.createDays(this.state.startingDate) }));
   }
 
   getItemLayout = (data, index) => {
@@ -382,7 +381,6 @@ class CalendarStrip extends Component {
 
   createDayProps = selectedDate => {
     const isFold = PixelRatio.getFontScale() <= 0.9;
-    
     return {
       selectedDate,
       onDateSelected: this.onDateSelected,
@@ -394,10 +392,11 @@ class CalendarStrip extends Component {
       dayComponent: this.props.dayComponent,
       calendarColor: this.props.calendarColor,
       // dateNameStyle: this.props.dateNameStyle,
-       dateNameStyle: {...this.props.dateNameStyle, 
-       fontSize: Platform.OS === 'android' && !!isFold && 25
+      dateNameStyle: {
+        ...this.props.dateNameStyle,
+        fontSize: Platform.OS === 'android' && !!isFold && 25
       },
-  
+      // dateNumberStyle: this.props.dateNumberStyle,
       dateNumberStyle: {
         ...this.props.dateNumberStyle,
         ...(Platform.OS === 'android' && isFold
@@ -410,29 +409,31 @@ class CalendarStrip extends Component {
           : {})
       },
 
-      // dateNumberStyle: this.props.dateNumberStyle,
       weekendDateNameStyle: this.props.weekendDateNameStyle,
       weekendDateNumberStyle: this.props.weekendDateNumberStyle,
-       highlightDateNameStyle: {...this.props.highlightDateNameStyle,
+      // highlightDateNameStyle: this.props.highlightDateNameStyle,
+      highlightDateNameStyle: {
+        ...this.props.highlightDateNameStyle,
         fontSize: Platform.OS === 'android' && !!isFold && 25
       },
-      highlightDateNumberStyle: {...this.props.highlightDateNumberStyle,
-        width:Platform.OS === 'android'? !!isFold ?60:null:null,
+      // highlightDateNumberStyle: this.props.highlightDateNumberStyle,
+      highlightDateNumberStyle: {
+        ...this.props.highlightDateNumberStyle,
+        width: Platform.OS === 'android' ? !!isFold ? 60 : null : null,
         // Platform.OS === 'android' && 
         // !!isFold && 
         // 60,
       },
-      // highlightDateNameStyle: this.props.highlightDateNameStyle,
-      // highlightDateNumberStyle: this.props.highlightDateNumberStyle,
-       disabledDateNameStyle: {...this.props.disabledDateNameStyle,
-      fontSize:Platform.OS === 'android' && !!isFold && 25
-    },
-      disabledDateNumberStyle: {...this.props.disabledDateNumberStyle,
-         fontSize: Platform.OS === 'android' && !!isFold &&5
-        },
-
       // disabledDateNameStyle: this.props.disabledDateNameStyle,
+      disabledDateNameStyle: {
+        ...this.props.disabledDateNameStyle,
+        fontSize: Platform.OS === 'android' && !!isFold && 25
+      },
       // disabledDateNumberStyle: this.props.disabledDateNumberStyle,
+      disabledDateNumberStyle: {
+        ...this.props.disabledDateNumberStyle,
+        fontSize: Platform.OS === 'android' && !!isFold && 5
+      },
       markedDatesStyle: this.props.markedDatesStyle,
       disabledDateOpacity: this.props.disabledDateOpacity,
       styleWeekend: this.props.styleWeekend,
@@ -466,7 +467,7 @@ class CalendarStrip extends Component {
     if (scrollable) {
       numDays = this.numDaysScroll;
       // Center start date in scroller.
-      _startingDate = startingDate.clone().subtract(numDays/2, "days");
+      _startingDate = startingDate.clone().subtract(numDays / 2, "days");
       if (minDate && _startingDate.isBefore(minDate, "day")) {
         _startingDate = moment(minDate);
       }
@@ -487,7 +488,7 @@ class CalendarStrip extends Component {
         if (date.isSame(startingDate, "day")) {
           initialScrollerIndex = i;
         }
-        datesList.push({date});
+        datesList.push({ date });
       }
       else {
         days.push(this.renderDay({
@@ -495,7 +496,7 @@ class CalendarStrip extends Component {
           key: date.format("YYYY-MM-DD"),
           ...this.createDayProps(selectedDate),
         }));
-        datesList.push({date});
+        datesList.push({ date });
       }
     }
 
@@ -527,7 +528,7 @@ class CalendarStrip extends Component {
   }
 
   renderHeader() {
-    return ( this.props.showMonth &&
+    return (this.props.showMonth &&
       <CalendarHeader
         calendarHeaderFormat={this.props.calendarHeaderFormat}
         calendarHeaderContainerStyle={this.props.calendarHeaderContainerStyle}
@@ -549,7 +550,7 @@ class CalendarStrip extends Component {
           ref={scroller => this.scroller = scroller}
           data={this.state.datesList}
           renderDay={this.renderDay}
-          renderDayParams={{...this.createDayProps(this.state.selectedDate)}}
+          renderDayParams={{ ...this.createDayProps(this.state.selectedDate) }}
           maxSimultaneousDays={this.numDaysScroll}
           initialRenderIndex={this.state.initialScrollerIndex}
           minDate={this.props.minDate}

@@ -136,9 +136,8 @@ class CalendarDay extends Component {
     }
 
     if ((prevProps.datesBlacklist !== this.props.datesBlacklist) ||
-        (prevProps.datesWhitelist !== this.props.datesWhitelist) ||
-        hasDateChanged)
-    {
+      (prevProps.datesWhitelist !== this.props.datesWhitelist) ||
+      hasDateChanged) {
       newState = { ...newState, enabled: this.isDateAllowed(this.props.date, this.props.datesBlacklist, this.props.datesWhitelist) };
       doStateUpdate = true;
     }
@@ -381,7 +380,6 @@ class CalendarDay extends Component {
       dateNumberFontSize,
     } = this.state;
     const isFold = PixelRatio.getFontScale() <= 0.9;
-
     let _dateNameStyle = [styles.dateName, enabled ? dateNameStyle : disabledDateNameStyle];
     let _dateNumberStyle = [styles.dateNumber, enabled ? dateNumberStyle : disabledDateNumberStyle];
     let _dateViewStyle = enabled
@@ -412,50 +410,79 @@ class CalendarDay extends Component {
           // No animation styling by default
           break;
       }
+
       _dateNameStyle = [styles.dateName, dateNameStyle];
       _dateNumberStyle = [styles.dateNumber, dateNumberStyle];
       if (styleWeekend &&
         (date.isoWeekday() === 6 || date.isoWeekday() === 7)
       ) {
+        // _dateNameStyle = [
+        //   styles.weekendDateName,
+        //   weekendDateNameStyle
+        // ];
+        // _dateNameStyle = [
+        //   styles.weekendDateName,
+        //   [weekendDateNameStyle,
+        //     Platform.OS === 'android' && !!isFold && { width: 60, backgroundColor: 'green' }
+        //   ]
+        // ];
         _dateNameStyle = [
           styles.weekendDateName,
-           [ weekendDateNameStyle,
-        Platform.OS === 'android' &&  !!isFold && { width: 60, backgroundColor:'green' }
-         ]
+          weekendDateNameStyle,
+          Platform.OS === 'android' && isFold ? { width: 60 } : null,
         ];
+        // _dateNumberStyle = [
+        //   styles.weekendDateNumber,
+        //   weekendDateNumberStyle
+        // ];
         _dateNumberStyle = [
           styles.weekendDateNumber,
-          [weekendDateNumberStyle,
-            Platform.OS === 'android' && !!isFold && { width: 60, backgroundColor: 'gold' }
-          ]
+          weekendDateNameStyle,
+          Platform.OS === 'android' && isFold ? { width: 60 } : null,
+          // [weekendDateNumberStyle,
+          //   Platform.OS === 'android' && !!isFold && { width: 60, backgroundColor: 'gold' }
+          // ]
         ];
       }
       if (selected) {
+        // _dateNameStyle = [styles.dateName, highlightDateNameStyle];
         _dateNameStyle = [styles.dateName,
-         [highlightDateNameStyle,
-          Platform.OS === 'android' &&  !!isFold && { width: 60 }
-          ]
-          ];
+          highlightDateNameStyle,
+        Platform.OS === 'android' && isFold ? { width: 60 } : null,
+
+          // [highlightDateNameStyle,
+          // Platform.OS === 'android' && !!isFold && { width: 60 }
+          // ]
+        ];
+        // _dateNumberStyle = [
+        //   styles.dateNumber,
+        //   highlightDateNumberStyle
+        // ];
         _dateNumberStyle = [
           styles.dateNumber,
           highlightDateNumberStyle,
-          {
-            fontSize: Platform.OS === 'android' && !!isFold && 39,
-            // paddingHorizontal: 0,
-          }
+          Platform.OS === 'android' && isFold ? { fontSize: 39 } : null,
+
+          // paddingHorizontal: 0,
+
+          // highlightDateNumberStyle,
+          // {
+          //   fontSize: Platform.OS === 'android' && !!isFold && 39,
+          //   // paddingHorizontal: 0,
+          // }
         ];
       }
     }
 
     let responsiveDateContainerStyle = {
-      width: Platform.OS === 'android' && !!isFold ? containerSize + 40 : containerSize,
+      width: containerSize,
       height: containerSize,
       borderRadius: containerBorderRadius,
     };
 
     let day;
     if (DayComponent) {
-      day = (<DayComponent {...this.props} {...this.state}/>);
+      day = (<DayComponent {...this.props} {...this.state} />);
     }
     else {
       day = (
@@ -472,9 +499,12 @@ class CalendarDay extends Component {
           >
             {showDayName && (
               <Text
+                // style={[{ fontSize: dateNameFontSize }, _dateNameStyle]}
+                // allowFontScaling={false}
                 style={[{ fontSize: dateNameFontSize },
-                   [_dateNameStyle,Platform.OS === 'android' && !!isFold&& {width:60}]
-                  ]}
+                  _dateNameStyle, Platform.OS === 'android' && isFold ? { width: 60 } : null
+                  // [_dateNameStyle, Platform.OS === 'android' && !!isFold && { width: 60 }]
+                ]}
                 allowFontScaling={false}
               >
                 {date.format("ddd").toUpperCase()}
@@ -491,7 +521,7 @@ class CalendarDay extends Component {
                 >
                   {date.date()}
                 </Text>
-                { this.renderMarking() }
+                {this.renderMarking()}
               </View>
             )}
           </View>
@@ -502,7 +532,7 @@ class CalendarDay extends Component {
     return calendarAnimation && !scrollable ? (
       <Animated.View style={[
         styles.dateRootContainer,
-        {opacity: this.state.animatedValue}
+        { opacity: this.state.animatedValue }
       ]}>
         {day}
       </Animated.View>
@@ -515,4 +545,3 @@ class CalendarDay extends Component {
 }
 
 export default CalendarDay;
-

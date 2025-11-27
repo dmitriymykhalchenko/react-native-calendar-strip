@@ -60,11 +60,10 @@ class CalendarHeader extends Component {
       )}`;
     }
 
-    return `${
-      monthFormatting.length > 1 ? firstDay.format(monthFormatting) : ""
-    } ${monthFormatting.length > 1 ? "/" : ""} ${lastDay.format(
-      calendarHeaderFormat
-    )}`;
+    return `${monthFormatting.length > 1 ? firstDay.format(monthFormatting) : ""
+      } ${monthFormatting.length > 1 ? "/" : ""} ${lastDay.format(
+        calendarHeaderFormat
+      )}`;
   }
 
   render() {
@@ -85,7 +84,7 @@ class CalendarHeader extends Component {
 
     return (
       <TouchableOpacity
-        onPress={onHeaderSelected && onHeaderSelected.bind(this, {weekStartDate, weekEndDate})}
+        onPress={onHeaderSelected && onHeaderSelected.bind(this, { weekStartDate, weekEndDate })}
         disabled={!onHeaderSelected}
         style={calendarHeaderContainerStyle}
       >
