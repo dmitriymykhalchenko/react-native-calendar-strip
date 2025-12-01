@@ -12,7 +12,6 @@ export default StyleSheet.create({
   datesStrip: {
     flexDirection: "row",
     flex: 1 / 2,
-    backgroundColor: 'gold',
     alignItems: "flex-start",
     marginTop: 20,
     // alignItems: "center",
