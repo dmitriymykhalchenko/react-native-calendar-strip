@@ -394,7 +394,8 @@ class CalendarStrip extends Component {
       // dateNameStyle: this.props.dateNameStyle,
       dateNameStyle: {
         ...this.props.dateNameStyle,
-        fontSize: Platform.OS === 'android' && !!isFold && 25
+        fontSize: Platform.OS === 'android' && !!isFold ? 25 : this.props.dateNameStyle.fontSize
+
       },
       // dateNumberStyle: this.props.dateNumberStyle,
       dateNumberStyle: {
@@ -414,12 +415,12 @@ class CalendarStrip extends Component {
       // highlightDateNameStyle: this.props.highlightDateNameStyle,
       highlightDateNameStyle: {
         ...this.props.highlightDateNameStyle,
-        fontSize: Platform.OS === 'android' && !!isFold && 25
+        fontSize: Platform.OS === 'android' && !!isFold ? 25 : this.props.dateNameStyle.fontSize
       },
       // highlightDateNumberStyle: this.props.highlightDateNumberStyle,
       highlightDateNumberStyle: {
         ...this.props.highlightDateNumberStyle,
-        width: Platform.OS === 'android' ? !!isFold ? 60 : null : null,
+        width: Platform.OS === 'android' ? !!isFold ? 60 : this.props.dateNameStyle.width : null,
         // Platform.OS === 'android' && 
         // !!isFold && 
         // 60,
@@ -427,12 +428,12 @@ class CalendarStrip extends Component {
       // disabledDateNameStyle: this.props.disabledDateNameStyle,
       disabledDateNameStyle: {
         ...this.props.disabledDateNameStyle,
-        fontSize: Platform.OS === 'android' && !!isFold && 25
+        fontSize: Platform.OS === 'android' && !!isFold ? 25 : this.props.dateNameStyle.fontSize
       },
       // disabledDateNumberStyle: this.props.disabledDateNumberStyle,
       disabledDateNumberStyle: {
         ...this.props.disabledDateNumberStyle,
-        fontSize: Platform.OS === 'android' && !!isFold && 5
+        fontSize: Platform.OS === 'android' && !!isFold ? 5 : this.props.dateNameStyle.fontSize
       },
       markedDatesStyle: this.props.markedDatesStyle,
       disabledDateOpacity: this.props.disabledDateOpacity,
