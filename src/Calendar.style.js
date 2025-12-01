@@ -11,8 +11,11 @@ export default StyleSheet.create({
   },
   datesStrip: {
     flexDirection: "row",
-    flex: 1,
-    alignItems: "center",
+    flex: 1 / 2,
+    backgroundColor: 'gold',
+    alignItems: "flex-start",
+    marginTop: 20,
+    // alignItems: "center",
     justifyContent: "space-between"
   },
   calendarDates: {
@@ -38,7 +41,7 @@ export default StyleSheet.create({
   //CALENDAR DAY
   dateRootContainer: {
     flex: 1,
-    height: Platform.OS === 'android'&& 50,
+    height: Platform.OS === 'android' && 50,
   },
   dateContainer: {
     justifyContent: "center",
